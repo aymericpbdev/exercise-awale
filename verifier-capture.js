@@ -1,5 +1,5 @@
 //dom, variables a mettre a jour pour l'affichage 
-
+/*
 const boxOne = document.getElementById("box1");
 const boxTwo = document.getElementById("box2");
 const boxThree = document.getElementById("box3");
@@ -20,7 +20,7 @@ let player2Boxes = [boxSeven, boxEight, boxNine, boxTen, boxEleven, boxTwelve];
 let scroreP1 = document.getElementById("score-player-1");
 //score joueur 2
 let scoreP2 = document.getElementById("score-player-2");
-
+*/
 
 
 
