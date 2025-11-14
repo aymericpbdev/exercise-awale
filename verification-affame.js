@@ -43,5 +43,30 @@ function territoireAdverseVide(joueur) {
 
 
   // reste a faire / regle de nourir avec le message 
+  function verifierObligationNourrir(joueur) {
+    const debutAdversaire = joueur === 1 ? 6 : 0;
+    const finAdversaire = joueur === 1 ? 11 : 5;
+    const debutJoueur = joueur === 1 ? 0 : 6;
+    const finJoueur = joueur === 1 ? 5 : 11;
+    
+    // Verifier si territoire adverse est vide
+    let adverseVide = true;
+    for (let i = debutAdversaire; i <= finAdversaire; i++) {
+      if (plateau[i] > 0) {
+        adverseVide = false;
+        break;
+      }
+    }
+    
+    if (!adverseVide) return true; // Jeu normal
+    
+    // Territoire adverse vide, chercher si on peut nourrir
+    for (let i = debutJoueur; i <= finJoueur; i++) {
+      const pions = plateau[i];
+     
+    }
+    
+   
+  }
 
 
