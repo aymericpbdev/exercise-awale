@@ -13,17 +13,22 @@ function territoireAdverseVide(joueur) {
 
 
   function capturePions(index, joueur) {
-    const debutAdversaire = joueur === 1 ? 6 : 0;
+    const debutAdversaire = joueur === 1 ? 6 : 0; // definir les variable debuts et fin, hors des fonction (doublons ?)
     const finAdversaire = joueur === 1 ? 11 : 5;
+    const capturesEffectuees = []; 
     
     while (index >= 0 && index <= 11) {
       const pions = plateau[index];
+      
       if ((pions === 2 || pions === 3) && index >= debutAdversaire && index <= finAdversaire) {
         plateau[index] = 0;
+        capturesEffectuees.push({ index, pions }); 
         
-        // Vérifier si l'adversaire est affame 
+
         if (territoireAdverseVide(joueur)) {
-          plateau[index] = pions; // Restaure les pions
+          for (const capture of capturesEffectuees) {
+            plateau[capture.index] = capture.pions;
+          }
           break;
         }
         
@@ -36,6 +41,7 @@ function territoireAdverseVide(joueur) {
   }
 
 
-  //modifie a faire / probleme a résoudre avec cette version si affame, la restoration n'est faite que sur la derniere case vérifié et pas sur les précedente en cas d'enchainement 
 
   // reste a faire / regle de nourir avec le message 
+
+
