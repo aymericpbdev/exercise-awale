@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeu d'Awalé</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div>
+        <h1>Awalé</h1>
+    </div>
+
+    <!-- Informations de jeu -->
+    <div class="game-info">
+        <span>Joueur 1: <strong id="score1">0</strong></span>
+        <span id="turn-display">Tour: Joueur 1</span>
+        <span>Joueur 2: <strong id="score2">0</strong></span>
+    </div>
+
+    <!-- Plateau de jeu -->
+    <div class="board">
+        <!-- Côté Joueur 2 -->
+        <div class="player2-side">
+            <button class="hole" data-player="2" data-index="5">4</button>
+            <button class="hole" data-player="2" data-index="4">4</button>
+            <button class="hole" data-player="2" data-index="3">4</button>
+            <button class="hole" data-player="2" data-index="2">4</button>
+            <button class="hole" data-player="2" data-index="1">4</button>
+            <button class="hole" data-player="2" data-index="0">4</button>
+        </div>
+        
+        <!-- Côté Joueur 1 -->
+        <div class="player1-side">
+            <button class="hole" data-player="1" data-index="0">4</button>
+            <button class="hole" data-player="1" data-index="1">4</button>
+            <button class="hole" data-player="1" data-index="2">4</button>
+            <button class="hole" data-player="1" data-index="3">4</button>
+            <button class="hole" data-player="1" data-index="4">4</button>
+            <button class="hole" data-player="1" data-index="5">4</button>
+        </div>
+    </div>
+
+    <!-- Boutons de contrôle -->
+    <div class="controls">
+        <button id="start-btn" class="btn-start">Commencer</button>
+        <button id="reset-btn" class="btn-reset">Réinitialiser</button>
+    </div>
+
+    <!-- Zone de messages -->
+    <div id="message"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
