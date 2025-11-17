@@ -5,8 +5,17 @@ function distributeSeeds(board, startIndex) {
     let index = startIndex;
 
     while (seeds > 0) {
-        index = (index + 1) % board.length; // avance en boucle (0→11→0→...)
-        board[index]++;                     // dépose une graine
+
+        // Avancer d'une case en bouclant
+        index = (index + 1) % board.length;
+
+        // Ne pas redéposer dans la case de départ
+        if (index === startIndex) {
+            index = (index + 1) % board.length;
+        }
+
+        // Déposer une graine
+        board[index]++;
         seeds--;
     }
 
