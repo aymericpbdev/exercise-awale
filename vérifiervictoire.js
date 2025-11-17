@@ -14,7 +14,7 @@ function checkWin() {
     // Un joueur gagne s'il capture 25 graines ou plus (majorité des 48 graines totales)
     
     if (gameState.scores[0] >= 25) {
-        messageEL.textContent = `🎯 Joueur 1 atteint ${gameState.scores[0]} graines`;
+        messageEL.textContent = `🎯 Player 1 reaches ${gameState.scores[0]} seeds`;
         endgame();  // Termine la partie
         return;     // Arrête la fonction ici
     }
@@ -23,7 +23,7 @@ function checkWin() {
     // ===== PARTIE 3 : VÉRIFIER SI JOUEUR 2 A GAGNÉ =====
     
     if (gameState.scores[1] >= 25) {  // CORRECTION NÉCESSAIRE
-        messageEL.textContent = `🎯 Joueur 2 atteint ${gameState.scores[1]} graines`;
+        messageEL.textContent = `🎯 Player 2 reaches ${gameState.scores[1]} seeds`;
         endgame();
         return;
     }
@@ -33,7 +33,7 @@ function checkWin() {
     // Si toutes les graines ont été capturées, la partie est finie
     
     if (totalSeedsOnBoard === 0) {
-        messageEL.textContent = "Plateau vide - Fin de partie";
+        messageEL.textContent = "Empty tray - End game";
         endgame();
         return;
     }
@@ -74,9 +74,7 @@ function checkWin() {
             
             // Vide tous les trous du joueur
             gameState.board[currentPlayerIndex] = [0,0,0,0,0,0];
-            
-            // ⚠️ BUG : "current.Player" devrait être "currentPlayer"
-            messageEL.textContent = `⚠️ Joueur ${gameState.currentPlayer === 1 ? 2 : 1} ne peut plus jouer`;
+            messageEL.textContent = `⚠️ Gamer ${gameState.currentPlayer === 1 ? 2 : 1} can no longer play`;
         }
         
         endgame();
@@ -93,7 +91,7 @@ function checkWin() {
         if (gameState.history.length > 100) {
             // Si plus de 100 coups joués, c'est trop long
             
-            messageEL.textContent = "Partie trop longue - Fin automatique";
+            messageEL.textContent = "Part too long - Automatic termination";
             
             // Distribue équitablement les graines restantes
             gameState.scores[0] += Math.floor(totalSeedsOnBoard / 2);  // Arrondi inférieur
