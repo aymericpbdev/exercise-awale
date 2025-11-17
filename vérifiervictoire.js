@@ -22,7 +22,7 @@ function checkWin() {
 
     // ===== PARTIE 3 : VÉRIFIER SI JOUEUR 2 A GAGNÉ =====
     
-    if (gameState.scores[1] >= 25) {  // CORRECTION NÉCESSAIRE
+    if (gameState.scores[1] >= 25) {
         messageEL.textContent = `🎯 Player 2 reaches ${gameState.scores[1]} seeds`;
         endgame();
         return;
@@ -42,18 +42,14 @@ function checkWin() {
     // ===== PARTIE 5 : VÉRIFIER SI L'ADVERSAIRE PEUT ENCORE JOUER =====
     // Un joueur doit avoir au moins 1 graine dans ses trous pour jouer
     
-    const player1HasSeeds = gameState.board[0].some(seeds => seeds > 0);
-    const player2HasSeeds = gameState.board[1].some(seeds => seeds > 0); // CORRECTION
-    
-    // some() : retourne true si AU MOINS un élément respecte la condition
-    // Exemple : [0, 0, 3, 0] → true (car il y a un 3)
-
     // Trouve l'index de l'adversaire (l'autre joueur)
     const opponentIndex = gameState.currentPlayer === 1 ? 1 : 0;
     // Opérateur ternaire : condition ? siVrai : siFaux
     // Si joueur actuel = 1, adversaire = index 1, sinon index 0
     
     const opponentHasSeeds = gameState.board[opponentIndex].some(seeds => seeds > 0);
+    // some() : retourne true si AU MOINS un élément respecte la condition
+    // Exemple : [0, 0, 3, 0] → true (car il y a un 3)
 
 
     // ===== PARTIE 6 : ADVERSAIRE BLOQUÉ (SANS GRAINES) =====
@@ -74,7 +70,7 @@ function checkWin() {
             
             // Vide tous les trous du joueur
             gameState.board[currentPlayerIndex] = [0,0,0,0,0,0];
-            messageEL.textContent = `⚠️ Gamer ${gameState.currentPlayer === 1 ? 2 : 1} can no longer play`;
+            messageEL.textContent = `⚠️ Player ${gameState.currentPlayer === 1 ? 2 : 1} can no longer play`;
         }
         
         endgame();
@@ -116,20 +112,20 @@ function checkWin() {
 
 /*
 ═══════════════════════════════════════════════════════════════════════════════
-🗒️ RESUME DE checkWin()
+🗒️ RÉSUMÉ DE checkWin()
 ═══════════════════════════════════════════════════════════════════════════════
 
-ROLE : Vérifie après chaque coup si la partie d'Awélé est terminée et désigne le gagnant.
+RÔLE : Vérifie après chaque coup si la partie d'Awélé est terminée et désigne le gagnant.
 
-Les 8 VERIFICATIONS EFFECTUEES :
-1. Compte les graines sur le plateau (lignes 31-33)
-2. Victoire Joueur 1 → Si score ≥ 25 graines (lignes 40-45)
-3. Victoire Joueur 1 → Si score ≥ 25 graines (lignes 51-56)
-4. Plateau vide → Si toutes les graines sont capturées (lignes 62-66)
-5. Vérifie si chaque joueur peut encore jouer (lignes 72-82)
-6. Adversaire bloqué → Le joueur actif récupère ses graines (lignes 91-113)
-7. Partie trop longue → Si < 6 graines, scores égaux et > 100 coups (lignes 119-142)
-8. Sinon → La partie continue (ligne 146)
+Les 8 VÉRIFICATIONS EFFECTUÉES :
+1. Compte les graines sur le plateau (lignes 4-9)
+2. Victoire Joueur 1 → Si score ≥ 25 graines (lignes 15-20)
+3. Victoire Joueur 2 → Si score ≥ 25 graines (lignes 25-29)
+4. Plateau vide → Si toutes les graines sont capturées (lignes 35-39)
+5. Vérifie si l'adversaire peut encore jouer (lignes 45-52)
+6. Adversaire bloqué → Le joueur actif récupère ses graines (lignes 58-76)
+7. Partie trop longue → Si < 6 graines, scores égaux et > 100 coups (lignes 82-104)
+8. Sinon → La partie continue (ligne 108)
 
 ═══════════════════════════════════════════════════════════════════════════════
 */
