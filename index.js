@@ -315,7 +315,6 @@ function handleHoleClick(event) {
         // Afficher un message d'erreur
             messageElement.textContent = '❌ Erreur';
         }
-    }
 }
 
 // Initialise les écouteurs d'événements
