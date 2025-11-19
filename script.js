@@ -69,20 +69,27 @@ function enablePlayerHoles(player) {
 function distributeSeeds(startIndex) {
     let seeds = board[startIndex];
     board[startIndex] = 0;
+
     let currentIndex = startIndex;
+
     while (seeds > 0) {
-        // Avancer d'une case en bouclant sur le plateau
-        currentIndex = (currentIndex + 1) % board.length;
+
+        // Avancer en sens ANTI-HORAIRE
+        currentIndex = (currentIndex - 1 + board.length) % board.length;
+
         // Ne pas redéposer dans la case de départ
         if (currentIndex === startIndex) {
-            currentIndex = (currentIndex + 1) % board.length;
+            currentIndex = (currentIndex - 1 + board.length) % board.length;
         }
+
         // Déposer une graine
         board[currentIndex]++;
         seeds--;
     }
+
     return currentIndex;
 }
+
 
 // Vérifie si le territoire adverse est vide
 // player : joueur actif (0 ou 1)
