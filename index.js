@@ -313,10 +313,7 @@ function handleHoleClick(event) {
         playTurn(boardIndex);
     } else {
         // Afficher un message d'erreur
-        if (!belongsToActivePlayer) {
-            messageElement.textContent = '❌ Ce n\'est pas votre tour !';
-        } else if (!isNotEmpty) {
-            messageElement.textContent = '❌ Cette case est vide !';
+            messageElement.textContent = '❌ Erreur';
         }
     }
 }
