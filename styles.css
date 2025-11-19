@@ -1,0 +1,14 @@
+.player2-side {
+    display: flex;
+    justify-content: start;
+    flex-direction: row-reverse;
+    gap :5px;
+}
+
+.player1-side {
+    display: flex;
+    gap: 5px;
+}
+
+
+
