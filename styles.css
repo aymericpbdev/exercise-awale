@@ -135,3 +135,31 @@ h1{
 .hole.active:hover{
     transform: scale(1.06);
 }
+
+/* Scores badges positionnés de chaque côté du plateau */
+.score-badge{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: linear-gradient(180deg,var(--primary),#1f4f82);
+    color: white;
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-weight: 700;
+    box-shadow: 0 8px 30px rgba(15, 23, 42, 0.08);
+    z-index: 6;
+}
+.score-badge.left{left:-72px}
+.score-badge.right{right:-72px}
+
+/* Indicateur visuel du joueur actif (petite flamme) */
+.player-indicator{
+    display: inline-grid;
+    grid-auto-flow: column;
+    gap: 8px;
+    align-items: center;
+}
+.player-indicator .dot{
+    width: 10px;height: 10px;border-radius: 50%;background: var(--muted);box-shadow: 0 2px 6px rgba(16, 24, 40, 0.12);
+}
+.player-indicator .dot.active{background: var(--accent);box-shadow: 0 6px 14px rgba(224, 168, 0, 0.18);}
