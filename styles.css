@@ -1,0 +1,137 @@
+:root{
+    --wood-light: #caa472;
+    --wood-dark: #8b5e34;
+    --wood-grain: url('https://upload.wikimedia.org/wikipedia/commons/5/5f/wood_texture.png');
+
+    --bg: #f5f7fb;
+    --card: #ffffff;
+    --primary: #2b6cb0;
+    --accent: #e0a800;
+    --muted: #6b7280;
+    --hole-size: 72px;
+    --gap: 12px;
+    --radius: 12px;
+    --shadow: 0 6px 18px rgba(16,24,40,0.06);
+    --font: "Inter", system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+*{box-sizing: border-box;}
+html, body{height: 100%;}
+body{
+    margin: 0;
+    font-family: var(--font);
+    background: linear-gradient(180deg,var(--bg),#eef2f7);
+    color: #111827;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 28px;
+}
+
+.container {
+    width: 100%;
+    max-width: 920px;
+}
+
+h1{
+    margin: 0 0 12px 0;
+    font-size: 20px;
+    text-align: center;
+    color: var(--primary);
+}
+
+/* PLATEAU */
+.board{
+    position: relative;
+    background: var(--card);
+    background-image:var(--wood-grain);
+    background-size: cover;
+    border: 4px solid var(--wood-dark);
+
+    border-radius: 18px;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+/* Informations (scores / tour / messages) - affichées "sur" plateau */
+.game-info{
+    position: absolute;
+    left: 50%;
+    top: 8%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.85);
+    padding: 8px 12px;
+    border-radius: 999px;
+    box-shadow: 0 4px 10px rgba(16, 24, 40, 0.04);
+    font-weight: 600;
+    z-index:5;
+}
+
+.game-info span{display: flex;align-items: center;gap: 8px;font-size: 14px;color: var(--muted);}
+.game-info strong{color: var(--primary);font-size: 14px;}
+
+/* Conteneur orizontal pour aligner correctement */
+#message{
+    position: absolute;
+    left: 50%;
+    bottom: 8px;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.95);
+    padding: 8px 12px;
+    border-radius: 10px;
+    box-shadow: 0 6px 18px rgba(16, 24, 40, 0.06);
+    font-weight: 600;
+    color: var(--muted);
+    z-index: 5;
+    min-width: 200px;
+    text-align: center;
+}
+
+/* Les deux rangées de trous */
+.player2-side, .player1-side{
+    display: flex;
+    gap: var(--gap);
+    justify-content: space-between;
+}
+
+/* Conteneur horizontal pour aligner correctement */
+.row{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hole{
+    width: var(--hole-size);
+    height: var(--hole-size);
+    border-radius: 50%;
+    border: 0;
+    background: linear-gradient(180deg, var(--wood-light), var(--wood-dark));
+    color: #fff;
+    box-shadow: 0 6px 12px rgba(15,23,42,0.06);
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    transition:transform .12s ease, box-shadow .12s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+.hole:active{transform: translateY(2px);}
+.hole:disabled{opacity: 0.5;cursor:not-allowed}
+
+/*état actif - met en évidence les trous du joueur actif */
+.hole.active{
+    outline: 3px solid rgba(43, 108, 176, 0.12);
+    box-shadow: 0 10px 20px rgba(43, 108, 176, 0.12);
+}
+
+/* Effet qui marque les trous cliquables */
+.hole.active:hover{
+    transform: scale(1.06);
+}
