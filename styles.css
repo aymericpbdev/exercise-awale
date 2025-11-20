@@ -119,3 +119,24 @@ h1{
 .hole.active:hover{
     transform: scale(1.1);
 }
+
+/* Très petits mobiles */
+@media (max-width: 360px) {
+    :root{
+        --hole-size: 38px;
+        --gap: 4px;
+    }
+    
+    body{
+        padding: 8px;
+    }
+    
+    .board{
+        padding: 12px;
+        gap: 8px;
+    }
+    
+    .hole{
+        font-size: 11px;
+    }
+}
