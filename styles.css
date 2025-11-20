@@ -1,12 +1,12 @@
 :root{
     --wood-light: #caa472;
     --wood-dark: #8b5e34;
-    --wood-grain: url('https://upload.wikimedia.org/wikipedia/commons/5/5f/wood_texture.png');
+    --wood-grain: url('https://www.transparenttextures.com/patterns/wood-pattern.png');
 
     --bg: #f5f7fb;
     --card: #ffffff;
     --primary: #2b6cb0;
-    --accent: #e0a800;
+    --accent: #ff0000;
     --muted: #6b7280;
     --hole-size: 72px;
     --gap: 12px;
@@ -43,11 +43,12 @@ h1{
 /* PLATEAU */
 .board{
     position: relative;
-    background: var(--card);
-    background-image:var(--wood-grain);
-    background-size: cover;
+    background-color: var(--wood-light);
+    background-image: var(--wood-grain);
+    background-blend-mode: multiply;
+    background-size: 400px 400px;
     border: 4px solid var(--wood-dark);
-
+    padding: 24px;
     border-radius: 18px;
     box-shadow: var(--shadow);
     display: flex;
@@ -57,39 +58,31 @@ h1{
 
 /* Informations (scores / tour / messages) - affichées "sur" plateau */
 .game-info{
-    position: absolute;
-    left: 50%;
-    top: 8%;
-    transform: translateX(-50%);
     display: flex;
-    gap: 14px;
+    gap: 18px;
     align-items: center;
-    background: rgba(255, 255, 255, 0.85);
-    padding: 8px 12px;
-    border-radius: 999px;
-    box-shadow: 0 4px 10px rgba(16, 24, 40, 0.04);
+    background: rgba(255, 255, 255, 0.9);
+    padding: 10px 16px;
+    border-radius: 14px;
     font-weight: 600;
-    z-index:5;
+    justify-content: center;
 }
 
 .game-info span{display: flex;align-items: center;gap: 8px;font-size: 14px;color: var(--muted);}
 .game-info strong{color: var(--primary);font-size: 14px;}
 
-/* Conteneur orizontal pour aligner correctement */
 #message{
-    position: absolute;
-    left: 50%;
-    bottom: 8px;
-    transform: translateX(-50%);
-    background: rgba(255, 255, 255, 0.95);
-    padding: 8px 12px;
-    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 10px 14px;
+    border-radius: 12px;
     box-shadow: 0 6px 18px rgba(16, 24, 40, 0.06);
     font-weight: 600;
     color: var(--muted);
-    z-index: 5;
-    min-width: 200px;
     text-align: center;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Les deux rangées de trous */
@@ -99,67 +92,30 @@ h1{
     justify-content: space-between;
 }
 
-/* Conteneur horizontal pour aligner correctement */
-.row{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
 .hole{
     width: var(--hole-size);
     height: var(--hole-size);
-    border-radius: 50%;
     border: 0;
-    background: linear-gradient(180deg, var(--wood-light), var(--wood-dark));
-    color: #fff;
-    box-shadow: 0 6px 12px rgba(15,23,42,0.06);
+    background: transparent;
+    color: var(--primary);
     font-weight: 700;
     font-size: 16px;
     cursor: pointer;
-    transition:transform .12s ease, box-shadow .12s ease;
+    transition: transform .12s ease;
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    position: relative;
 }
-.hole:active{transform: translateY(2px);}
+.hole:active{transform: scale(0.95);}
 .hole:disabled{opacity: 0.5;cursor:not-allowed}
 
 /*état actif - met en évidence les trous du joueur actif */
 .hole.active{
-    outline: 3px solid rgba(43, 108, 176, 0.12);
-    box-shadow: 0 10px 20px rgba(43, 108, 176, 0.12);
+    color: var(--accent);
 }
 
 /* Effet qui marque les trous cliquables */
 .hole.active:hover{
-    transform: scale(1.06);
+    transform: scale(1.1);
 }
-
-/* Scores badges positionnés de chaque côté du plateau */
-.score-badge{
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: linear-gradient(180deg,var(--primary),#1f4f82);
-    color: white;
-    padding: 10px 14px;
-    border-radius: 12px;
-    font-weight: 700;
-    box-shadow: 0 8px 30px rgba(15, 23, 42, 0.08);
-    z-index: 6;
-}
-.score-badge.left{left:-72px}
-.score-badge.right{right:-72px}
-
-/* Indicateur visuel du joueur actif (petite flamme) */
-.player-indicator{
-    display: inline-grid;
-    grid-auto-flow: column;
-    gap: 8px;
-    align-items: center;
-}
-.player-indicator .dot{
-    width: 10px;height: 10px;border-radius: 50%;background: var(--muted);box-shadow: 0 2px 6px rgba(16, 24, 40, 0.12);
-}
-.player-indicator .dot.active{background: var(--accent);box-shadow: 0 6px 14px rgba(224, 168, 0, 0.18);}
