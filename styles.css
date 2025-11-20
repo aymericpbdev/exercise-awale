@@ -34,6 +34,11 @@ h1 {
 }
 
 /* Lignes du plateau */
+.player2-side {
+    justify-content: start;
+    flex-direction: row-reverse;
+}
+
 .player1-side,
 .player2-side {
     display: flex;
