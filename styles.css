@@ -1,47 +1,60 @@
-:root{
+/* Variables pour le plateau en bois */
+:root {
     --wood-light: #caa472;
     --wood-dark: #8b5e34;
     --wood-grain: url('https://www.transparenttextures.com/patterns/wood-pattern.png');
-
-    --bg: #f5f7fb;
-    --card: #ffffff;
     --primary: #2b6cb0;
-    --accent: #ff0000;
     --muted: #6b7280;
-    --hole-size: 72px;
-    --gap: 12px;
-    --radius: 12px;
     --shadow: 0 6px 18px rgba(16,24,40,0.06);
-    --font: "Inter", system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial;
 }
 
-*{box-sizing: border-box;}
-html, body{height: 100%;}
-body{
+/* Style général */
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
     margin: 0;
-    font-family: var(--font);
-    background: linear-gradient(180deg,var(--bg),#eef2f7);
-    color: #111827;
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+/* Infos du jeu avec fond blanc semi-transparent */
+.game-info {
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 10px 16px;
+    border-radius: 14px;
+    font-weight: 600;
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.game-info span {
     display: flex;
     align-items: center;
-    justify-content: center;
-    padding: 28px;
+    gap: 8px;
+    font-size: 14px;
+    color: var(--muted);
 }
 
-.container {
-    width: 100%;
-    max-width: 920px;
+.game-info strong {
+    color: var(--primary);
+    font-size: 14px;
 }
 
-h1{
-    margin: 0 0 12px 0;
-    font-size: 20px;
-    text-align: center;
+#turn-display {
+    font-weight: bold;
     color: var(--primary);
 }
 
-/* PLATEAU */
-.board{
+/* Plateau - avec texture bois */
+.board {
     position: relative;
     background-color: var(--wood-light);
     background-image: var(--wood-grain);
@@ -53,29 +66,49 @@ h1{
     box-shadow: var(--shadow);
     display: flex;
     flex-direction: column;
-    gap: 14px;
-}
-
-/* Informations (scores / tour / messages) - affichées "sur" plateau */
-.game-info{
-    display: flex;
-    gap: 18px;
     align-items: center;
-    background: rgba(255, 255, 255, 0.9);
-    padding: 10px 16px;
-    border-radius: 14px;
-    font-weight: 600;
-    justify-content: center;
+    gap: 15px;
 }
 
-.game-info span{display: flex;align-items: center;gap: 8px;font-size: 14px;color: var(--muted);}
-.game-info strong{color: var(--primary);font-size: 14px;}
+/* Lignes du plateau */
+.player2-side {
+    justify-content: start;
+    flex-direction: row-reverse;
+}
 
-#message{
+.player1-side,
+.player2-side {
+    display: flex;
+    gap: 10px;
+}
+
+/* Boutons */
+.hole {
+    width: 60px;
+    height: 60px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 10px;
+    border: 2px solid #333;
+    background: white;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.hole:hover {
+    background: #e3e3e3;
+}
+
+.hole:active {
+    background: #ccc;
+}
+
+/* Message avec fond blanc semi-transparent */
+#message {
     background: rgba(255, 255, 255, 0.9);
     padding: 10px 14px;
     border-radius: 12px;
-    box-shadow: 0 6px 18px rgba(16, 24, 40, 0.06);
+    box-shadow: var(--shadow);
     font-weight: 600;
     color: var(--muted);
     text-align: center;
@@ -83,60 +116,6 @@ h1{
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-/* Les deux rangées de trous */
-.player2-side, .player1-side{
-    display: flex;
-    gap: var(--gap);
-    justify-content: space-between;
-}
-
-.hole{
-    width: var(--hole-size);
-    height: var(--hole-size);
-    border: 0;
-    background: transparent;
-    color: var(--primary);
-    font-weight: 700;
-    font-size: 16px;
-    cursor: pointer;
-    transition: transform .12s ease;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-}
-.hole:active{transform: scale(0.95);}
-.hole:disabled{opacity: 0.5;cursor:not-allowed}
-
-/*état actif - met en évidence les trous du joueur actif */
-.hole.active{
-    color: var(--accent);
-}
-
-/* Effet qui marque les trous cliquables */
-.hole.active:hover{
-    transform: scale(1.1);
-}
-
-/* Très petits mobiles */
-@media (max-width: 360px) {
-    :root{
-        --hole-size: 38px;
-        --gap: 4px;
-    }
-    
-    body{
-        padding: 8px;
-    }
-    
-    .board{
-        padding: 12px;
-        gap: 8px;
-    }
-    
-    .hole{
-        font-size: 11px;
-    }
+    margin-top: 20px;
+    font-size: 1.2rem;
 }
