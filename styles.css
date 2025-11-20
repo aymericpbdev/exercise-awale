@@ -1,14 +1,75 @@
-.player2-side {
+/* Style général */
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+/* Infos du jeu */
+.game-info {
     display: flex;
+    justify-content: center;
+    gap: 40px;
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+#turn-display {
+    font-weight: bold;
+    color: #2a6df4;
+}
+
+/* Plateau */
+.board {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Lignes du plateau */
+.player2-side {
     justify-content: start;
     flex-direction: row-reverse;
-    gap :5px;
 }
 
-.player1-side {
+.player1-side,
+.player2-side {
     display: flex;
-    gap: 5px;
+    gap: 10px;
 }
 
+/* Boutons */
+.hole {
+    width: 60px;
+    height: 60px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 10px;
+    border: 2px solid #333;
+    background: white;
+    cursor: pointer;
+    transition: 0.2s;
+}
 
+.hole:hover {
+    background: #e3e3e3;
+}
 
+.hole:active {
+    background: #ccc;
+}
+
+/* Message */
+#message {
+    margin-top: 20px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #c0392b;
+}
