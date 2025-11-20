@@ -16,6 +16,7 @@ const score1Element = document.getElementById('score1');
 const score2Element = document.getElementById('score2');
 const turnDisplay = document.getElementById('turn-display');
 const messageElement = document.getElementById('message');
+const resetButton = document.getElementById('reset-button'); // nouvelle variable ppur la reinitialisation 
 
 // Initialise une nouvelle partie
 function initializeGame() {
@@ -324,6 +325,12 @@ function setupEventListeners() {
         hole.addEventListener('click', handleHoleClick);
     });
 }
+
+//Ecoute le click sur le bouton de reinitilisation et le focntion initializeGame()
+resetButton.addEventListener('click', () => {
+    initializeGame();
+    messageElement.textContent = 'Nouvelle partie commencé ! (tour du joueur 1)';
+});
 
 document.addEventListener('DOMContentLoaded', () => {
     setupEventListeners();
