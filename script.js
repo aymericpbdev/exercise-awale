@@ -99,6 +99,34 @@ function isOpponentTerritoryEmpty(player) {
     return true;
 }
 
+// Vérifie si le joueur actif a AU MOINS un coup qui peut nourrir l'adversaire
+// player : joueur actif (0 ou 1)
+// Retourne : true si au moins un coup possible nourrit l'adversaire
+function canFeedOpponent(player) {
+    const start = player === 0 ? 0 : 6;
+    const end = player === 0 ? 5 : 11;
+    const opponentStart = player === 0 ? 6 : 0;
+    const opponentEnd = player === 0 ? 11 : 5;
+    // Parcourir toutes les cases du joueur actif
+    for (let i = start; i <= end; i++) {
+        if (board[i] === 0) continue; // Case vide, on passe
+        // Simuler la distribution pour cette case
+        let seeds = board[i];
+        let currentIndex = i;
+        for (let j = 0; j < seeds; j++) {
+            currentIndex = (currentIndex + 1) % board.length;
+            if (currentIndex === i) {
+                currentIndex = (currentIndex + 1) % board.length;
+            }
+            // Si on dépose au moins une graine chez l'adversaire
+            if (currentIndex >= opponentStart && currentIndex <= opponentEnd) {
+                return true; // Ce coup nourrit
+            }
+        }
+    }
+    return false; // Aucun coup ne peut nourrir
+}
+
 // Capture les pions selon les règles de l'Awalé
 // Respecte la règle de l'affamé : annule les captures si l'adversaire n'a plus de graines
 // lastIndex : dernière case ensemencée
@@ -187,28 +215,16 @@ function checkVictory() {
     }
     // Vérifier si le joueur actuel ne peut plus jouer
     if (!canActivePlayerPlay()) {
-        // Sauvegarder le joueur actuel
-        const blockedPlayer = gameState.currentPlayer;
-        // Vérifier si l'adversaire peut jouer
-        const opponent = blockedPlayer === 0 ? 1 : 0;
-        const opponentStart = opponent === 0 ? 0 : 6;
-        const opponentEnd = opponent === 0 ? 5 : 11;
-        let opponentCanPlay = false;
-        for (let i = opponentStart; i <= opponentEnd; i++) {
-            if (board[i] > 0) {
-                opponentCanPlay = true;
-                break;
-            }
-        }
-        // Si l'adversaire ne peut pas non plus jouer alors partie nulle
-        if (!opponentCanPlay) {
+        // Vérifier si l'adversaire peut nourrir
+        const opponent = gameState.currentPlayer === 0 ? 1 : 0;
+        if (!canFeedOpponent(opponent)) {
+            // L'adversaire NE PEUT PAS nourrir => Partie nulle
             declareDraw();
             return true;
         }
-        // Si l'adversaire peut jouer mais le joueur bloqué ne peut pas alors partie nulle aussi
-        // Car l'adversaire devrait nourrir mais si on est ici c'est que ce n'est pas possible
-        declareDraw();
-        return true;
+        // L'adversaire PEUT nourrir => La partie continue
+        // L'obligation de nourrir sera gérée au prochain tour
+        return false;
     }
     return false;
 }
