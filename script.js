@@ -99,6 +99,25 @@ function isOpponentTerritoryEmpty(player) {
     return true;
 }
 
+
+
+function wouldCaptureStarveOpponent(captureIndices, player) {
+    // Déterminer le territoire de l'adversaire
+    const opponentStart = player === 0 ? 6 : 0;
+    const opponentEnd = player === 0 ? 11 : 5;
+    
+    // Vérifier s'il reste des graines dans le territoire adverse après simulation
+    for (let i = opponentStart; i <= opponentEnd; i++) {
+        // Si la case n'est pas dans les captures ET contient des graines
+        if (!captureIndices.includes(i) && board[i] > 0) {
+            return false; // L'adversaire aurait encore au moins une graine
+        }
+    }
+    
+    return true; // L'adversaire serait affamé
+}
+
+
 // Vérifie si le joueur actif a AU MOINS un coup qui peut nourrir l'adversaire
 // player : joueur actif (0 ou 1)
 // Retourne : true si au moins un coup possible nourrit l'adversaire
@@ -134,36 +153,43 @@ function canFeedOpponent(player) {
 function captureSeeds(lastIndex, player) {
     const opponentStart = player === 0 ? 6 : 0;
     const opponentEnd = player === 0 ? 11 : 5;
-    const capturedSeeds = [];
+    const captureIndices = [];
     let currentIndex = lastIndex;
-    // Parcourir les cases en sens inverse pour capturer
-    while (currentIndex >= 0 && currentIndex <= 11) {
+    
+    // Étape 1 : Identifier toutes les cases à capturer (en remontant)
+    while (currentIndex >= opponentStart && currentIndex <= opponentEnd) {
         const seedsInHole = board[currentIndex];
-        // Conditions de capture : 2 ou 3 graines ET dans le territoire adverse
-        if ((seedsInHole === 2 || seedsInHole === 3) && 
-            currentIndex >= opponentStart && 
-            currentIndex <= opponentEnd) {
-            // Enregistrer la capture temporairement
-            board[currentIndex] = 0;
-            capturedSeeds.push({ index: currentIndex, seeds: seedsInHole });
-            // Règle de l'affamé : vérifier si l'adversaire peut encore jouer
-            if (isOpponentTerritoryEmpty(player)) {
-                // Annuler toutes les captures et restaurer les graines
-                for (const capture of capturedSeeds) {
-                    board[capture.index] = capture.seeds;
-                }
-                messageElement.textContent = '⚠️ Capture annulée : vous ne pouvez pas affamer l\'adversaire';
-                return;
-            }
-            // Capture validée : ajouter au score
-            gameState.scores[player] += seedsInHole;
+        
+        
+        if (seedsInHole === 2 || seedsInHole === 3) {
+            captureIndices.push(currentIndex);
             currentIndex--;
         } else {
-            // Arrêter la capture si la condition n'est plus remplie
-            break;
+            break; // Arrêter si la condition n'est plus remplie
         }
     }
+    
+    // Si aucune capture possible, sortir
+    if (captureIndices.length === 0) {
+        return;
+    }
+    
+    // Étape 2 : Vérifier si la capture affamerait l'adversaire
+    if (wouldCaptureStarveOpponent(captureIndices, player)) {
+        messageElement.textContent = '⚠️ Capture annulée : vous ne pouvez pas affamer l\'adversaire';
+        return;
+    }
+    
+    // Étape 3 : Effectuer la capture (seulement si validée)
+    for (const index of captureIndices) {
+        gameState.scores[player] += board[index];
+        board[index] = 0;
+    }
 }
+
+
+
+
 
 // Vérifie si le joueur doit nourrir l'adversaire
 // player : joueur actif (0 ou 1)
