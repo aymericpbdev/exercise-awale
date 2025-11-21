@@ -99,6 +99,28 @@ function isOpponentTerritoryEmpty(player) {
     return true;
 }
 
+
+function wouldCaptureStarveOpponent(capturedSeeds, player) {
+    const tempBoard = [...board];  // copie du plateau
+    
+    for (const capture of capturedSeeds) {
+        tempBoard[capture.index] = 0;  // ssimulation sur la copie
+    }
+    
+    const opponentStart = player === 0 ? 6 : 0;
+    const opponentEnd = player === 0 ? 11 : 5;
+    
+    for (let i = opponentStart; i <= opponentEnd; i++) {
+        if (tempBoard[i] > 0) {
+            return false;  // l'adversaire a encore des graines
+        }
+    }
+    
+    return true;  // L'adversaire serait affamé
+}
+
+
+
 // Capture les pions selon les règles de l'Awalé
 // Respecte la règle de l'affamé : annule les captures si l'adversaire n'a plus de graines
 // lastIndex : dernière case ensemencée
