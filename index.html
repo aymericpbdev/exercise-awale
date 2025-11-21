@@ -7,21 +7,18 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div>
+    <div class="container">
         <h1>Awalé</h1>
-    </div>
-
-    <!-- Informations de jeu -->
-    <div class="game-info">
-        <span>Joueur 1: <strong id="score1">0</strong></span>
-        <span id="turn-display">Tour: Joueur 1</span>
-        <span>Joueur 2: <strong id="score2">0</strong></span>
-    </div>
-
-    <!-- Plateau de jeu -->
-    <div class="board">
+        <!-- Plateau de jeu -->
+        <div class="board">
+            <!-- Informations de jeu -->
+            <div class="game-info">
+                <span>Joueur 1: <strong id="score1">0</strong></span>
+                <span id="turn-display">Tour: Joueur 1</span>
+                <span>Joueur 2: <strong id="score2">0</strong></span>
+            </div>
         <!-- Côté Joueur 2 -->
-         <!-- p1-hole-1 => player 1 hole 1 -->
+        <!-- p1-hole-1 => player 1 hole 1 -->
         <div class="player2-side">
             <button class="hole p2-hole-1" data-player="2" data-index="5">4</button>
             <button class="hole p2-hole-2" data-player="2" data-index="4">4</button>
@@ -29,8 +26,7 @@
             <button class="hole p2-hole-4" data-player="2" data-index="2">4</button>
             <button class="hole p2-hole-5" data-player="2" data-index="1">4</button>
             <button class="hole p2-hole-6" data-player="2" data-index="0">4</button>
-        </div>
-        
+        </div>        
         <!-- Côté Joueur 1 -->
         <div class="player1-side">
             <button class="hole p1-hole-1" data-player="1" data-index="0">4</button>
@@ -40,14 +36,17 @@
             <button class="hole p1-hole-5" data-player="1" data-index="4">4</button>
             <button class="hole p1-hole-6" data-player="1" data-index="5">4</button>
         </div>
+            <!-- Zone de messages -->
+            <div id="message"></div>
+        </div>
     </div>
-
+    <!-- Plateau de jeu -->
+    <div class="board">
+    </div>
     <!--boutons reset vers une nouvelle partie -->
     <button id="reset-button">Nouvelle partie</button>
-
     <!-- Zone de messages -->
     <div id="message"></div>
-
     <script src="script.js"></script>
 </body>
 </html>
