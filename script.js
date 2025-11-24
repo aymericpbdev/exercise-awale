@@ -101,7 +101,7 @@ function isOpponentTerritoryEmpty(player) {
 
 
 
-function wouldCaptureStarveOpponent(captureIndices, player) {
+function wouldStarveOpponent(captureIndices, player) {
     // Déterminer le territoire de l'adversaire
     const opponentStart = player === 0 ? 6 : 0;
     const opponentEnd = player === 0 ? 11 : 5;
@@ -117,34 +117,6 @@ function wouldCaptureStarveOpponent(captureIndices, player) {
     return true; // L'adversaire serait affamé
 }
 
-
-// Vérifie si le joueur actif a AU MOINS un coup qui peut nourrir l'adversaire
-// player : joueur actif (0 ou 1)
-// Retourne : true si au moins un coup possible nourrit l'adversaire
-function canFeedOpponent(player) {
-    const start = player === 0 ? 0 : 6;
-    const end = player === 0 ? 5 : 11;
-    const opponentStart = player === 0 ? 6 : 0;
-    const opponentEnd = player === 0 ? 11 : 5;
-    // Parcourir toutes les cases du joueur actif
-    for (let i = start; i <= end; i++) {
-        if (board[i] === 0) continue; // Case vide, on passe
-        // Simuler la distribution pour cette case
-        let seeds = board[i];
-        let currentIndex = i;
-        for (let j = 0; j < seeds; j++) {
-            currentIndex = (currentIndex + 1) % board.length;
-            if (currentIndex === i) {
-                currentIndex = (currentIndex + 1) % board.length;
-            }
-            // Si on dépose au moins une graine chez l'adversaire
-            if (currentIndex >= opponentStart && currentIndex <= opponentEnd) {
-                return true; // Ce coup nourrit
-            }
-        }
-    }
-    return false; // Aucun coup ne peut nourrir
-}
 
 // Capture les pions selon les règles de l'Awalé
 // Respecte la règle de l'affamé : annule les captures si l'adversaire n'a plus de graines
@@ -187,7 +159,33 @@ function captureSeeds(lastIndex, player) {
     }
 }
 
-
+// Vérifie si le joueur actif a AU MOINS un coup qui peut nourrir l'adversaire
+// player : joueur actif (0 ou 1)
+// Retourne : true si au moins un coup possible nourrit l'adversaire
+function canFeedOpponent(player) {
+    const start = player === 0 ? 0 : 6;
+    const end = player === 0 ? 5 : 11;
+    const opponentStart = player === 0 ? 6 : 0;
+    const opponentEnd = player === 0 ? 11 : 5;
+    // Parcourir toutes les cases du joueur actif
+    for (let i = start; i <= end; i++) {
+        if (board[i] === 0) continue; // Case vide, on passe
+        // Simuler la distribution pour cette case
+        let seeds = board[i];
+        let currentIndex = i;
+        for (let j = 0; j < seeds; j++) {
+            currentIndex = (currentIndex + 1) % board.length;
+            if (currentIndex === i) {
+                currentIndex = (currentIndex + 1) % board.length;
+            }
+            // Si on dépose au moins une graine chez l'adversaire
+            if (currentIndex >= opponentStart && currentIndex <= opponentEnd) {
+                return true; // Ce coup nourrit
+            }
+        }
+    }
+    return false; // Aucun coup ne peut nourrir
+}
 
 
 
